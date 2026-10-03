@@ -269,6 +269,92 @@
     .status-tag.next { color: #3b82f6; }
     .status-tag.free { color: #8b5cf6; }
 
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .status-tag.now .dot {
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes nowGlow {
+      0%, 100% { box-shadow: 0 0 0 2px #10b981, 0 4px 16px rgba(16, 185, 129, 0.45); }
+      50% { box-shadow: 0 0 0 4px #10b981, 0 8px 24px rgba(16, 185, 129, 0.7); }
+    }
+
+    .cls.is-now, .ag-card.is-now {
+      animation: nowGlow 2s infinite ease-in-out !important;
+      border-left-width: 6px !important;
+      border-color: #10b981 !important;
+    }
+
+    .cls.is-next, .ag-card.is-next {
+      border-left-width: 6px !important;
+      box-shadow: 0 0 0 2px #3b82f6, 0 4px 14px rgba(59, 130, 246, 0.4) !important;
+    }
+
+    .live-chip {
+      background: #10b981;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 99px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.4);
+    }
+
+    .next-chip {
+      background: #3b82f6;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 99px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .dh.is-today {
+      color: var(--primary) !important;
+      background: color-mix(in srgb, var(--primary) 15%, var(--surface-elevated)) !important;
+      position: relative;
+    }
+
+    .dh.is-today::after {
+      content: 'TODAY';
+      position: absolute;
+      bottom: 2px;
+      font-size: 9px;
+      letter-spacing: 0.05em;
+      font-weight: 800;
+      color: var(--primary);
+      background: rgba(99, 102, 241, 0.18);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .live-demo-btn {
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--badge-bg);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 2px 8px;
+      cursor: pointer;
+      margin-top: 4px;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    .live-demo-btn:hover {
+      color: var(--ink);
+      border-color: var(--primary);
+    }
+
     .live-title {
       font-size: 16px;
       font-weight: 700;
@@ -1236,20 +1322,164 @@
           };
         }
 
-        // Live Clock
-        function updateClock() {
+        // --- Full Real-Time Live Status Engine ---
+        let simulatedTime = null;
+
+        function updateLiveStatus() {
           try {
-            const now = new Date();
+            const now = simulatedTime || new Date();
+            const currentDayIdx = now.getDay() - 1; // 0 = Mon, 1 = Tue, 2 = Wed, 3 = Thu, 4 = Fri
+            const currentHour = now.getHours();
+            const currentMin = now.getMinutes();
+            const currentMinutes = currentHour * 60 + currentMin;
+
+            // Clock & Date string
             const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             const dateStr = now.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
             const clockEl = document.getElementById('liveClock');
             const dateEl = document.getElementById('liveDate');
             if (clockEl) clockEl.textContent = timeStr;
-            if (dateEl) dateEl.textContent = dateStr;
-          } catch(e) {}
+            if (dateEl) dateEl.textContent = (simulatedTime ? '🧪 DEMO: ' : '') + dateStr;
+
+            const liveCard = document.getElementById('liveCard');
+            const liveIcon = document.getElementById('liveIcon');
+            const liveTag = document.getElementById('liveTag');
+            const liveTagText = document.getElementById('liveTagText');
+            const liveTitle = document.getElementById('liveTitle');
+            const liveMeta = document.getElementById('liveMeta');
+
+            if (!liveCard) return;
+
+            // Clear old card highlights
+            document.querySelectorAll('.is-now, .is-next').forEach(el => el.classList.remove('is-now', 'is-next'));
+            document.querySelectorAll('.live-chip, .next-chip').forEach(el => el.remove());
+
+            // Highlight desktop header column for today
+            if (currentDayIdx >= 0 && currentDayIdx <= 4) {
+              const dhs = document.querySelectorAll('.dh');
+              dhs.forEach((dh, idx) => {
+                if (idx === currentDayIdx) dh.classList.add('is-today');
+                else dh.classList.remove('is-today');
+              });
+            }
+
+            // Check if weekend
+            if (currentDayIdx < 0 || currentDayIdx > 4) {
+              liveCard.className = 'live-status-card';
+              liveIcon.textContent = '🏖️';
+              liveTag.className = 'status-tag free';
+              liveTagText.textContent = 'Weekend';
+              liveTitle.textContent = 'No Lectures Today';
+              liveMeta.innerHTML = 'Enjoy your weekend! Next lecture: Monday 10:00 AM (MIS4132 at LCT 02) <br><button class="live-demo-btn" onclick="toggleSimDemo()">▶️ Preview Live Class Demo</button>';
+              return;
+            }
+
+            // Today's classes
+            const todayClasses = SLOTS.map((s, idx) => ({ slot: s, idx }))
+              .filter(item => item.slot[0] === currentDayIdx)
+              .sort((a, b) => a.slot[1] - b.slot[1]);
+
+            let activeClass = null;
+            let nextClass = null;
+
+            for (let item of todayClasses) {
+              const [d, startRow, dur, code, venue] = item.slot;
+              const startH = 8 + startRow;
+              const startM = startH * 60;
+              const endM = (startH + dur - 1) * 60 + 55;
+
+              if (currentMinutes >= startM && currentMinutes <= endM) {
+                activeClass = { ...item, startH, dur, endM };
+                break;
+              } else if (currentMinutes < startM && !nextClass) {
+                nextClass = { ...item, startH, dur, startM };
+              }
+            }
+
+            function attachBadge(cardIdx, badgeClass, badgeText, cardClass) {
+              document.querySelectorAll(`[onclick="openModal(${cardIdx})"]`).forEach(card => {
+                card.classList.add(cardClass);
+                const cd = card.querySelector('.cd');
+                if (cd && !cd.querySelector(`.${badgeClass}`)) {
+                  const span = document.createElement('span');
+                  span.className = badgeClass;
+                  span.textContent = badgeText;
+                  cd.appendChild(span);
+                }
+              });
+            }
+
+            if (activeClass) {
+              const [d, startRow, dur, code, venue] = activeClass.slot;
+              const [name, lecturer] = COURSES[code];
+              const remainingMin = activeClass.endM - currentMinutes;
+
+              liveCard.className = 'live-status-card active';
+              liveIcon.textContent = '🔴';
+              liveTag.className = 'status-tag now';
+              liveTagText.textContent = 'HAPPENING NOW';
+              liveTitle.textContent = `${code} — ${name}`;
+              liveMeta.innerHTML = `📍 ${venue} • 👤 ${lecturer} • Ends in <strong>${remainingMin} mins</strong> (${activeClass.startH + activeClass.dur - 1}:55)${simulatedTime ? ' <button class="live-demo-btn" onclick="toggleSimDemo()">Exit Demo</button>' : ''}`;
+
+              attachBadge(activeClass.idx, 'live-chip', 'LIVE NOW', 'is-now');
+            } else if (nextClass) {
+              const [d, startRow, dur, code, venue] = nextClass.slot;
+              const [name, lecturer] = COURSES[code];
+              const minUntil = nextClass.startM - currentMinutes;
+              const hUntil = Math.floor(minUntil / 60);
+              const mUntil = minUntil % 60;
+              const inStr = hUntil > 0 ? `in ${hUntil}h ${mUntil}m` : `in ${mUntil} mins`;
+
+              liveCard.className = 'live-status-card';
+              liveIcon.textContent = '⏳';
+              liveTag.className = 'status-tag next';
+              liveTagText.textContent = 'UPCOMING NEXT';
+              liveTitle.textContent = `${code} — ${name}`;
+              liveMeta.innerHTML = `📍 ${venue} • Starts <strong>${inStr}</strong> at ${nextClass.startH}:00 • 👤 ${lecturer}${simulatedTime ? ' <button class="live-demo-btn" onclick="toggleSimDemo()">Exit Demo</button>' : ''}`;
+
+              attachBadge(nextClass.idx, 'next-chip', 'NEXT UP', 'is-next');
+            } else {
+              // Day complete
+              liveCard.className = 'live-status-card';
+              liveIcon.textContent = '✨';
+              liveTag.className = 'status-tag free';
+              liveTagText.textContent = 'Day Complete';
+              liveTitle.textContent = 'All lectures completed for today!';
+
+              const nextDayIdx = (currentDayIdx + 1) % 5;
+              const nextDayName = DAYS[nextDayIdx];
+              const nextDayClasses = SLOTS.filter(s => s[0] === nextDayIdx).sort((a, b) => a[1] - b[1]);
+              if (nextDayClasses.length > 0) {
+                const first = nextDayClasses[0];
+                liveMeta.innerHTML = `Next class: ${nextDayName} at ${8 + first[1]}:00 AM (${first[3]} at ${first[4]})`;
+              } else {
+                liveMeta.textContent = 'Enjoy your rest!';
+              }
+            }
+          } catch(e) {
+            console.error('updateLiveStatus error:', e);
+          }
         }
-        updateClock();
-        setInterval(updateClock, 30000);
+
+        // Demo simulation toggle
+        window.toggleSimDemo = function() {
+          if (simulatedTime) {
+            simulatedTime = null;
+          } else {
+            // Simulate Wednesday 10:35 AM (during MIS4112 lecture!)
+            const d = new Date();
+            const day = d.getDay();
+            const diff = 3 - day; // 3 = Wednesday
+            d.setDate(d.getDate() + diff);
+            d.setHours(10, 35, 0, 0);
+            simulatedTime = d;
+          }
+          updateLiveStatus();
+        };
+
+        // Run live tracker immediately and every 10 seconds
+        updateLiveStatus();
+        setInterval(updateLiveStatus, 10000);
 
         // Day Pills Filtering for Mobile
         const pills = document.querySelectorAll('.day-pill');
