@@ -1,0 +1,36 @@
+{
+  "name": "Level IV Timetable - Semester I",
+  "short_name": "Timetable",
+  "description": "FM & IS Degree Program Weekly Lecture Timetable App for Desktop & Mobile",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f1420",
+  "theme_color": "#3b28cc",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "education",
+    "productivity"
+  ],
+  "shortcuts": [
+    {
+      "name": "Today's Schedule",
+      "url": "./index.html#today",
+      "description": "Quickly check today's classes"
+    },
+    {
+      "name": "Full Week View",
+      "url": "./index.html#week",
+      "description": "View entire week grid"
+    }
+  ]
+}
