@@ -819,10 +819,393 @@
       gap: 6px;
     }
 
+    /* Semester Quick Overview Strip */
+    .sem-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .sem-stat-card {
+      background: var(--surface-card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sem-stat-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-md);
+    }
+
+    .sem-stat-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      background: var(--badge-bg);
+    }
+
+    .sem-stat-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sem-stat-label {
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    .sem-stat-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sem-stat-sub {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    .sem-mini-bar {
+      height: 5px;
+      background: var(--badge-bg);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .sem-mini-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), #10b981);
+      border-radius: 99px;
+      transition: width 0.4s ease;
+    }
+
+    /* Academic Calendar Section */
+    .acad-section {
+      margin-top: 28px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .acad-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .acad-title-group h2 {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .acad-title-group p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .acad-view-toggle {
+      display: inline-flex;
+      background: var(--surface-elevated);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 3px;
+      gap: 4px;
+    }
+
+    .acad-toggle-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .acad-toggle-btn.active {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Overall Semester Progress Bar inside Calendar */
+    .acad-overall-progress {
+      background: var(--surface-elevated);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+    }
+
+    .acad-prog-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .acad-prog-track {
+      height: 10px;
+      background: var(--badge-bg);
+      border-radius: 99px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .acad-prog-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #6366f1, #10b981);
+      border-radius: 99px;
+      transition: width 0.5s ease;
+    }
+
+    /* Timeline Cards Grid */
+    .acad-timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 12px;
+    }
+
+    .acad-card {
+      background: var(--surface-card);
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--ac-color, var(--primary));
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .acad-card.is-shaded {
+      background: color-mix(in srgb, var(--ac-color, #64748b) 10%, var(--surface-elevated));
+    }
+
+    .acad-card.is-active-period {
+      border-left-width: 6px;
+      box-shadow: 0 0 0 2px var(--ac-color, #10b981), var(--shadow-md);
+      background: color-mix(in srgb, var(--ac-color, #10b981) 12%, var(--surface-card));
+    }
+
+    .acad-card.is-completed {
+      opacity: 0.72;
+    }
+
+    .acad-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .acad-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .acad-step-tag {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ac-color, var(--primary));
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .acad-status-badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 99px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .acad-status-badge.active {
+      background: #10b981;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+    }
+
+    .acad-status-badge.upcoming {
+      background: var(--badge-bg);
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .acad-status-badge.completed {
+      background: rgba(148, 163, 184, 0.15);
+      color: var(--muted);
+    }
+
+    .acad-card-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-top: 2px;
+    }
+
+    .acad-card-dates {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--head);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .acad-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line-subtle);
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .acad-dur-pill {
+      background: var(--badge-bg);
+      color: var(--ink);
+      padding: 2px 9px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .acad-gcal-link {
+      color: var(--primary-light);
+      text-decoration: none;
+      font-size: 11.5px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .acad-gcal-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Official Table View */
+    .acad-table-wrap {
+      display: none;
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+    }
+
+    .acad-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .acad-table th {
+      background: var(--surface-elevated);
+      color: var(--head);
+      font-weight: 800;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--line);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .acad-table td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--line-subtle);
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .acad-table tr.shaded-row td {
+      background: var(--band);
+    }
+
+    .acad-table tr.active-row td {
+      background: color-mix(in srgb, #10b981 14%, var(--surface));
+      border-top: 1px solid #10b981;
+      border-bottom: 1px solid #10b981;
+    }
+
+    .wk.hide-for-cal {
+      display: none !important;
+    }
+
     /* Mobile media query */
     @media (max-width: 860px) {
       .wk { display: none !important; }
       .ag { display: block !important; }
+      .ag.hide-for-cal { display: none !important; }
+      .sem-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .acad-section {
+        padding: 16px;
+      }
+      .acad-timeline {
+        grid-template-columns: 1fr;
+      }
       .live-status-card { flex-direction: column; align-items: flex-start; }
       .live-right {
         text-align: left;
@@ -832,6 +1215,28 @@
         align-items: center;
         border-top: 1px solid var(--line);
         padding-top: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sem-strip {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .sem-stat-card {
+        padding: 10px;
+        gap: 8px;
+      }
+      .sem-stat-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 15px;
+      }
+      .sem-stat-title {
+        font-size: 12.5px;
+      }
+      .sem-stat-sub {
+        font-size: 10.5px;
       }
     }
   </style>
@@ -882,7 +1287,7 @@
             <span id="liveTagText">Weekly Schedule</span>
           </div>
           <div class="live-title" id="liveTitle">Level IV Semester I Timetable</div>
-          <div class="live-meta" id="liveMeta">Updated 22 October 2026</div>
+          <div class="live-meta" id="liveMeta">Updated 25 October 2026</div>
         </div>
       </div>
       <div class="live-right">
@@ -891,11 +1296,51 @@
       </div>
     </div>
 
+    <!-- Semester Quick Overview & Countdowns Strip -->
+    <div class="sem-strip" id="semStrip">
+      <div class="sem-stat-card" onclick="scrollToAcademicCalendar()" title="View Academic Calendar">
+        <div class="sem-stat-icon" id="semCurIcon">📚</div>
+        <div class="sem-stat-body">
+          <div class="sem-stat-label"><span>CURRENT PHASE</span><span id="semCurPct" style="color:var(--primary-light)">55%</span></div>
+          <div class="sem-stat-title" id="semCurTitle">Academic Activities</div>
+          <div class="sem-stat-sub" id="semCurSub">28.09.2026 – 17.11.2026</div>
+          <div class="sem-mini-bar"><div class="sem-mini-fill" id="semCurBar" style="width:55%"></div></div>
+        </div>
+      </div>
+
+      <div class="sem-stat-card" onclick="scrollToAcademicCalendar()" title="Mid-Semester & Year-End Vacations">
+        <div class="sem-stat-icon">🏖️</div>
+        <div class="sem-stat-body">
+          <div class="sem-stat-label"><span>NEXT VACATION</span></div>
+          <div class="sem-stat-title" id="semVacCountdown">In 24 Days</div>
+          <div class="sem-stat-sub" id="semVacDates">18.11.2026 – 24.11.2026</div>
+        </div>
+      </div>
+
+      <div class="sem-stat-card" onclick="scrollToAcademicCalendar()" title="Study Leave Period">
+        <div class="sem-stat-icon">📝</div>
+        <div class="sem-stat-body">
+          <div class="sem-stat-label"><span>STUDY LEAVE</span></div>
+          <div class="sem-stat-title" id="semStudyCountdown">In 69 Days</div>
+          <div class="sem-stat-sub">02.01.2027 – 17.01.2027 (16d)</div>
+        </div>
+      </div>
+
+      <div class="sem-stat-card" onclick="scrollToAcademicCalendar()" title="Semester I Examination Start">
+        <div class="sem-stat-icon">🎓</div>
+        <div class="sem-stat-body">
+          <div class="sem-stat-label"><span>EXAMINATIONS</span></div>
+          <div class="sem-stat-title" id="semExamCountdown">In 85 Days</div>
+          <div class="sem-stat-sub">18.01.2027 – Onwards</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Controls Bar -->
     <div class="controls-bar">
       <div class="search-wrapper">
         <span class="search-icon">🔍</span>
-        <input type="text" class="search-input" id="searchInput" placeholder="Search subject, lecturer, room..." autocomplete="off">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search subject, lecturer, room, or calendar..." autocomplete="off">
       </div>
 
       <div class="filter-pills" id="dayPills">
@@ -906,6 +1351,7 @@
         <button class="day-pill" data-day="2">Wed <span class="count">1</span></button>
         <button class="day-pill" data-day="3">Thu <span class="count">2</span></button>
         <button class="day-pill" data-day="4">Fri <span class="count">1</span></button>
+        <button class="day-pill" data-day="calendar" id="pillCalendar">🗓️ Academic Calendar</button>
       </div>
     </div>
 
@@ -1133,12 +1579,273 @@
       </div>
     </div>
 
+    <!-- Official Academic Calendar / Semester I Timeline Section -->
+    <section class="acad-section" id="academicCalendarSection">
+      <div class="acad-header-card">
+        <div class="acad-title-wrap">
+          <h2>🗓️ Semester I Academic Calendar 2026 / 2027</h2>
+          <p>Official period schedule, vacations, study leave &amp; examination dates with real-time progress tracking</p>
+        </div>
+        <div class="acad-view-toggle">
+          <button class="acad-toggle-btn active" id="btnAcadTimeline" onclick="switchAcadView('timeline')">✨ Interactive Cards</button>
+          <button class="acad-toggle-btn" id="btnAcadTable" onclick="switchAcadView('table')">📋 Official Table</button>
+        </div>
+      </div>
+
+      <!-- Overall Semester Progress Tracker -->
+      <div class="sem-overall-progress">
+        <div class="sem-prog-top">
+          <span class="sem-prog-title">📊 Semester I Overall Progress (28.09.2026 – 18.01.2027)</span>
+          <span class="sem-prog-stats" id="semOverallStats">Day 28 of 112 • 25% Complete</span>
+        </div>
+        <div class="sem-prog-track">
+          <div class="sem-prog-fill" id="semOverallFill" style="width: 25%;"></div>
+        </div>
+      </div>
+
+      <!-- Interactive Timeline Cards View -->
+      <div class="acad-timeline" id="acadTimelineView">
+        <!-- 1. Academic activities (Phase 1) -->
+        <article class="acad-card" data-acad-idx="0" style="--ac-color: #6366f1;">
+          <div class="acad-card-top">
+            <div class="acad-type-badge" style="color:#818cf8;">📚 Phase 01 • Lectures</div>
+            <div class="acad-status-pill upcoming" id="acadStatus0">ACTIVE</div>
+          </div>
+          <div>
+            <div class="acad-period-title">Academic activities</div>
+            <div class="acad-dates">📅 28.09.2026 – 17.11.2026</div>
+          </div>
+          <div class="acad-progress-wrap" id="acadProgWrap0" style="display:none;">
+            <div class="acad-progress-label">
+              <span id="acadProgLeft0">Day 1 of 51</span>
+              <span id="acadProgRight0">50 days left</span>
+            </div>
+            <div class="acad-progress-bar">
+              <div class="acad-progress-fill" id="acadProgFill0" style="width:50%;"></div>
+            </div>
+          </div>
+          <div class="acad-meta-row">
+            <span class="acad-duration-tag">⏱️ 51 Days (7 Weeks)</span>
+            <a class="acad-gcal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Academic+Activities+(Phase+1)&dates=20260928/20261118&details=Level+IV+Semester+I+Academic+Activities+(28.09.2026+-+17.11.2026)" target="_blank" rel="noopener">📅 + Google Cal</a>
+          </div>
+        </article>
+
+        <!-- 2. Vacation (Mid-Semester) -->
+        <article class="acad-card" data-acad-idx="1" style="--ac-color: #10b981;">
+          <div class="acad-card-top">
+            <div class="acad-type-badge" style="color:#34d399;">🏖️ Mid-Semester Break</div>
+            <div class="acad-status-pill upcoming" id="acadStatus1">UPCOMING</div>
+          </div>
+          <div>
+            <div class="acad-period-title">Vacation</div>
+            <div class="acad-dates">📅 18.11.2026 – 24.11.2026</div>
+          </div>
+          <div class="acad-progress-wrap" id="acadProgWrap1" style="display:none;">
+            <div class="acad-progress-label">
+              <span id="acadProgLeft1">Day 1 of 7</span>
+              <span id="acadProgRight1">6 days left</span>
+            </div>
+            <div class="acad-progress-bar">
+              <div class="acad-progress-fill" id="acadProgFill1" style="width:0%;"></div>
+            </div>
+          </div>
+          <div class="acad-meta-row">
+            <span class="acad-duration-tag">⏱️ 7 Days (1 Week)</span>
+            <a class="acad-gcal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mid-Semester+Vacation&dates=20261118/20261125&details=Level+IV+Semester+I+Vacation+(18.11.2026+-+24.11.2026)" target="_blank" rel="noopener">📅 + Google Cal</a>
+          </div>
+        </article>
+
+        <!-- 3. Academic Activities (Phase 2) -->
+        <article class="acad-card" data-acad-idx="2" style="--ac-color: #6366f1;">
+          <div class="acad-card-top">
+            <div class="acad-type-badge" style="color:#818cf8;">📚 Phase 02 • Lectures</div>
+            <div class="acad-status-pill upcoming" id="acadStatus2">UPCOMING</div>
+          </div>
+          <div>
+            <div class="acad-period-title">Academic Activities</div>
+            <div class="acad-dates">📅 25.11.2026 – 18.12.2026</div>
+          </div>
+          <div class="acad-progress-wrap" id="acadProgWrap2" style="display:none;">
+            <div class="acad-progress-label">
+              <span id="acadProgLeft2">Day 1 of 24</span>
+              <span id="acadProgRight2">23 days left</span>
+            </div>
+            <div class="acad-progress-bar">
+              <div class="acad-progress-fill" id="acadProgFill2" style="width:0%;"></div>
+            </div>
+          </div>
+          <div class="acad-meta-row">
+            <span class="acad-duration-tag">⏱️ 24 Days (~3.5 Weeks)</span>
+            <a class="acad-gcal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Academic+Activities+(Phase+2)&dates=20261125/20261219&details=Level+IV+Semester+I+Academic+Activities+(25.11.2026+-+18.12.2026)" target="_blank" rel="noopener">📅 + Google Cal</a>
+          </div>
+        </article>
+
+        <!-- 4. Vacation (December / Christmas Break) -->
+        <article class="acad-card" data-acad-idx="3" style="--ac-color: #10b981;">
+          <div class="acad-card-top">
+            <div class="acad-type-badge" style="color:#34d399;">🎄 Year-End Break</div>
+            <div class="acad-status-pill upcoming" id="acadStatus3">UPCOMING</div>
+          </div>
+          <div>
+            <div class="acad-period-title">Vacation</div>
+            <div class="acad-dates">📅 19.12.2026 – 27.12.2026</div>
+          </div>
+          <div class="acad-progress-wrap" id="acadProgWrap3" style="display:none;">
+            <div class="acad-progress-label">
+              <span id="acadProgLeft3">Day 1 of 9</span>
+              <span id="acadProgRight3">8 days left</span>
+            </div>
+            <div class="acad-progress-bar">
+              <div class="acad-progress-fill" id="acadProgFill3" style="width:0%;"></div>
+            </div>
+          </div>
+          <div class="acad-meta-row">
+            <span class="acad-duration-tag">⏱️ 9 Days</span>
+            <a class="acad-gcal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=December+Vacation&dates=20261219/20261228&details=Level+IV+Semester+I+Vacation+(19.12.2026+-+27.12.2026)" target="_blank" rel="noopener">📅 + Google Cal</a>
+          </div>
+        </article>
+
+        <!-- 5. Academic Activities (Phase 3) -->
+        <article class="acad-card" data-acad-idx="4" style="--ac-color: #6366f1;">
+          <div class="acad-card-top">
+            <div class="acad-type-badge" style="color:#818cf8;">📚 Phase 03 • Final Week</div>
+            <div class="acad-status-pill upcoming" id="acadStatus4">UPCOMING</div>
+          </div>
+          <div>
+            <div class="acad-period-title">Academic Activities</div>
+            <div class="acad-dates">📅 28.12.2026 – 01.01.2027</div>
+          </div>
+          <div class="acad-progress-wrap" id="acadProgWrap4" style="display:none;">
+            <div class="acad-progress-label">
+              <span id="acadProgLeft4">Day 1 of 5</span>
+              <span id="acadProgRight4">4 days left</span>
+            </div>
+            <div class="acad-progress-bar">
+              <div class="acad-progress-fill" id="acadProgFill4" style="width:0%;"></div>
+            </div>
+          </div>
+          <div class="acad-meta-row">
+            <span class="acad-duration-tag">⏱️ 5 Days (1 Week)</span>
+            <a class="acad-gcal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Academic+Activities+(Phase+3)&dates=20261228/20270102&details=Level+IV+Semester+I+Academic+Activities+(28.12.2026+-+01.01.2027)" target="_blank" rel="noopener">📅 + Google Cal</a>
+          </div>
+        </article>
+
+        <!-- 6. Study Leave -->
+        <article class="acad-card" data-acad-idx="5" style="--ac-color: #f59e0b;">
+          <div class="acad-card-top">
+            <div class="acad-type-badge" style="color:#fbbf24;">📝 Exam Preparation</div>
+            <div class="acad-status-pill upcoming" id="acadStatus5">UPCOMING</div>
+          </div>
+          <div>
+            <div class="acad-period-title">Study Leave</div>
+            <div class="acad-dates">📅 02.01.2027 – 17.01.2027</div>
+          </div>
+          <div class="acad-progress-wrap" id="acadProgWrap5" style="display:none;">
+            <div class="acad-progress-label">
+              <span id="acadProgLeft5">Day 1 of 16</span>
+              <span id="acadProgRight5">15 days left</span>
+            </div>
+            <div class="acad-progress-bar">
+              <div class="acad-progress-fill" id="acadProgFill5" style="width:0%;"></div>
+            </div>
+          </div>
+          <div class="acad-meta-row">
+            <span class="acad-duration-tag">⏱️ 16 Days (~2 Weeks)</span>
+            <a class="acad-gcal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Semester+I+Study+Leave&dates=20270102/20270118&details=Level+IV+Semester+I+Study+Leave+(02.01.2027+-+17.01.2027)" target="_blank" rel="noopener">📅 + Google Cal</a>
+          </div>
+        </article>
+
+        <!-- 7. Examination -->
+        <article class="acad-card" data-acad-idx="6" style="--ac-color: #ec4899;">
+          <div class="acad-card-top">
+            <div class="acad-type-badge" style="color:#f472b6;">🎓 Final Assessment</div>
+            <div class="acad-status-pill upcoming" id="acadStatus6">UPCOMING</div>
+          </div>
+          <div>
+            <div class="acad-period-title">Examination</div>
+            <div class="acad-dates">📅 18.01.2027 - onwards</div>
+          </div>
+          <div class="acad-progress-wrap" id="acadProgWrap6" style="display:none;">
+            <div class="acad-progress-label">
+              <span id="acadProgLeft6">Examination Period</span>
+              <span id="acadProgRight6">In Progress</span>
+            </div>
+            <div class="acad-progress-bar">
+              <div class="acad-progress-fill" id="acadProgFill6" style="width:100%;"></div>
+            </div>
+          </div>
+          <div class="acad-meta-row">
+            <span class="acad-duration-tag">🎯 Starts 18 Jan 2027</span>
+            <a class="acad-gcal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Semester+I+Examinations+Start&dates=20270118/20270119&details=Level+IV+Semester+I+Examination+(18.01.2027+-+onwards)" target="_blank" rel="noopener">📅 + Google Cal</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Official Table View (Exact match to Official Notice with Live Status) -->
+      <div class="acad-table-wrap" id="acadTableView">
+        <table class="acad-table">
+          <thead>
+            <tr>
+              <th>Activity / Phase</th>
+              <th>Official Period</th>
+              <th>Duration</th>
+              <th>Live Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-table-idx="0">
+              <td><strong>Academic activities</strong></td>
+              <td class="acad-table-date">28.09.2026 – 17.11.2026</td>
+              <td>51 Days</td>
+              <td id="acadTableStatus0"><span class="acad-status-pill active"><span class="dot"></span> ACTIVE</span></td>
+            </tr>
+            <tr class="is-shaded-row" data-table-idx="1">
+              <td><strong>Vacation</strong></td>
+              <td class="acad-table-date">18.11.2026 – 24.11.2026</td>
+              <td>7 Days</td>
+              <td id="acadTableStatus1"><span class="acad-status-pill upcoming">UPCOMING</span></td>
+            </tr>
+            <tr data-table-idx="2">
+              <td><strong>Academic Activities</strong></td>
+              <td class="acad-table-date">25.11.2026 – 18.12.2026</td>
+              <td>24 Days</td>
+              <td id="acadTableStatus2"><span class="acad-status-pill upcoming">UPCOMING</span></td>
+            </tr>
+            <tr class="is-shaded-row" data-table-idx="3">
+              <td><strong>Vacation</strong></td>
+              <td class="acad-table-date">19.12.2026 – 27.12.2026</td>
+              <td>9 Days</td>
+              <td id="acadTableStatus3"><span class="acad-status-pill upcoming">UPCOMING</span></td>
+            </tr>
+            <tr data-table-idx="4">
+              <td><strong>Academic Activities</strong></td>
+              <td class="acad-table-date">28.12.2026 – 01.01.2027</td>
+              <td>5 Days</td>
+              <td id="acadTableStatus4"><span class="acad-status-pill upcoming">UPCOMING</span></td>
+            </tr>
+            <tr class="is-shaded-row" data-table-idx="5">
+              <td><strong>Study Leave</strong></td>
+              <td class="acad-table-date">02.01.2027 – 17.01.2027</td>
+              <td>16 Days</td>
+              <td id="acadTableStatus5"><span class="acad-status-pill upcoming">UPCOMING</span></td>
+            </tr>
+            <tr data-table-idx="6">
+              <td><strong>Examination</strong></td>
+              <td class="acad-table-date">18.01.2027 - onwards</td>
+              <td>Onwards</td>
+              <td id="acadTableStatus6"><span class="acad-status-pill upcoming">UPCOMING</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <!-- Notes & Footer -->
     <div class="timetable-footer">
       <div class="notes-box">
         <p><strong>Note:</strong> The grey band indicates the 12:00 – 13:00 break slot (shaded on official timetable).</p>
         <p><strong>Research Project:</strong> <code>MSF 4126</code> (Lecturer: All) has no fixed weekly slot on the timetable.</p>
-        <p><strong>Version:</strong> Updated 22 October 2026 • Level IV Custom Schedule.</p>
+        <p><strong>Version:</strong> Updated 25 October 2026 • Level IV Custom Schedule &amp; Academic Calendar.</p>
       </div>
     </div>
   </main>
@@ -1193,6 +1900,45 @@
       [3, 6, 2, 'MFM4122', 'New Lab'],
       [4, 2, 2, 'MFM4112', 'MSR']
     ];
+
+    // --- Official Academic Calendar Data ---
+    const ACADEMIC_CALENDAR = [
+      { title: 'Academic activities', period: '28.09.2026 – 17.11.2026', start: '2026-09-28', end: '2026-11-17', type: 'academic', icon: '📚' },
+      { title: 'Vacation',            period: '18.11.2026 – 24.11.2026', start: '2026-11-18', end: '2026-11-24', type: 'vacation', icon: '🏖️' },
+      { title: 'Academic Activities', period: '25.11.2026 – 18.12.2026', start: '2026-11-25', end: '2026-12-18', type: 'academic', icon: '📚' },
+      { title: 'Vacation',            period: '19.12.2026 – 27.12.2026', start: '2026-12-19', end: '2026-12-27', type: 'vacation', icon: '🎄' },
+      { title: 'Academic Activities', period: '28.12.2026 – 01.01.2027', start: '2026-12-28', end: '2027-01-01', type: 'academic', icon: '📚' },
+      { title: 'Study Leave',         period: '02.01.2027 – 17.01.2027', start: '2027-01-02', end: '2027-01-17', type: 'study',    icon: '📝' },
+      { title: 'Examination',         period: '18.01.2027 - onwards',    start: '2027-01-18', end: '2027-02-28', type: 'exam',     icon: '🎓' }
+    ];
+
+    // Switch between Interactive Cards and Official Table views
+    window.switchAcadView = function(mode) {
+      const tl = document.getElementById('acadTimelineView');
+      const tb = document.getElementById('acadTableView');
+      const btnTl = document.getElementById('btnAcadTimeline');
+      const btnTb = document.getElementById('btnAcadTable');
+      if (!tl || !tb) return;
+      if (mode === 'table') {
+        tl.style.display = 'none';
+        tb.classList.add('visible');
+        if (btnTl) btnTl.classList.remove('active');
+        if (btnTb) btnTb.classList.add('active');
+      } else {
+        tl.style.display = 'grid';
+        tb.classList.remove('visible');
+        if (btnTl) btnTl.classList.add('active');
+        if (btnTb) btnTb.classList.remove('active');
+      }
+    };
+
+    window.scrollToAcademicCalendar = function() {
+      const sec = document.getElementById('academicCalendarSection');
+      if (sec) {
+        sec.style.display = 'block';
+        sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
 
     // Safe storage helper
     function safeStorage(key, val) {
@@ -1261,6 +2007,183 @@
           };
         }
 
+        // --- Academic Calendar Live Progress & Countdown Engine ---
+        function parseLocalDate(ymd, endOfDay) {
+          const [y, m, d] = ymd.split('-').map(Number);
+          return endOfDay ? new Date(y, m - 1, d, 23, 59, 59, 999) : new Date(y, m - 1, d, 0, 0, 0, 0);
+        }
+
+        function updateAcademicCalendar() {
+          try {
+            const now = new Date();
+            const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+            const msPerDay = 86400000;
+
+            // Overall semester progress (from 2026-09-28 to 2027-01-18)
+            const semStart = parseLocalDate('2026-09-28', false);
+            const examStart = parseLocalDate('2027-01-18', false);
+            const totalSemDays = Math.max(1, Math.round((examStart - semStart) / msPerDay));
+            const elapsedSemDays = Math.max(0, Math.min(totalSemDays, Math.floor((todayStart - semStart) / msPerDay) + 1));
+            const overallPct = Math.max(0, Math.min(100, Math.round((elapsedSemDays / totalSemDays) * 100)));
+
+            const semOverallStats = document.getElementById('semOverallStats');
+            const semOverallFill = document.getElementById('semOverallFill');
+            if (semOverallStats) {
+              const daysToExam = Math.ceil((examStart - todayStart) / msPerDay);
+              if (daysToExam > 0) {
+                semOverallStats.textContent = `Day ${elapsedSemDays} of ${totalSemDays} • ${overallPct}% Complete (${daysToExam}d to Exams)`;
+              } else {
+                semOverallStats.textContent = `Examination Period Reached • 100% Complete`;
+              }
+            }
+            if (semOverallFill) semOverallFill.style.width = `${overallPct}%`;
+
+            let activePhase = null;
+
+            ACADEMIC_CALENDAR.forEach((item, idx) => {
+              const sDate = parseLocalDate(item.start, false);
+              const eDate = parseLocalDate(item.end, true);
+              const eDateStart = parseLocalDate(item.end, false);
+              const totalDays = Math.max(1, Math.round((eDateStart - sDate) / msPerDay) + 1);
+
+              const card = document.querySelector(`.acad-card[data-acad-idx="${idx}"]`);
+              const row = document.querySelector(`tr[data-table-idx="${idx}"]`);
+              const statusEl = document.getElementById(`acadStatus${idx}`);
+              const tableStatusEl = document.getElementById(`acadTableStatus${idx}`);
+              const progWrap = document.getElementById(`acadProgWrap${idx}`);
+              const progLeft = document.getElementById(`acadProgLeft${idx}`);
+              const progRight = document.getElementById(`acadProgRight${idx}`);
+              const progFill = document.getElementById(`acadProgFill${idx}`);
+
+              if (card) card.classList.remove('is-active-period', 'is-past-period');
+              if (row) row.classList.remove('is-active-row');
+
+              if (now >= sDate && now <= eDate) {
+                // Active period
+                const dayNum = Math.max(1, Math.min(totalDays, Math.floor((todayStart - sDate) / msPerDay) + 1));
+                const daysLeft = Math.max(0, Math.round((eDateStart - todayStart) / msPerDay));
+                const pct = Math.max(2, Math.min(100, Math.round((dayNum / totalDays) * 100)));
+
+                activePhase = { ...item, idx, dayNum, totalDays, daysLeft, pct };
+
+                if (card) card.classList.add('is-active-period');
+                if (row) row.classList.add('is-active-row');
+
+                if (statusEl) {
+                  statusEl.className = 'acad-status-pill active';
+                  statusEl.innerHTML = '<span class="dot"></span> ACTIVE NOW';
+                }
+                if (tableStatusEl) {
+                  tableStatusEl.innerHTML = `<span class="acad-status-pill active"><span class="dot"></span> ACTIVE (Day ${dayNum}/${totalDays})</span>`;
+                }
+                if (progWrap) {
+                  progWrap.style.display = 'block';
+                  if (progLeft) progLeft.textContent = item.type === 'exam' ? 'Examinations Ongoing' : `Day ${dayNum} of ${totalDays} (${pct}%)`;
+                  if (progRight) progRight.textContent = item.type === 'exam' ? 'Good Luck!' : (daysLeft === 0 ? 'Last day today' : `${daysLeft}d remaining`);
+                  if (progFill) progFill.style.width = `${pct}%`;
+                }
+              } else if (now > eDate) {
+                // Completed period
+                if (card) card.classList.add('is-past-period');
+                if (statusEl) {
+                  statusEl.className = 'acad-status-pill completed';
+                  statusEl.textContent = '✓ COMPLETED';
+                }
+                if (tableStatusEl) {
+                  tableStatusEl.innerHTML = '<span class="acad-status-pill completed">✓ COMPLETED</span>';
+                }
+                if (progWrap) progWrap.style.display = 'none';
+              } else {
+                // Upcoming period
+                const daysUntil = Math.ceil((sDate - todayStart) / msPerDay);
+                const inLabel = daysUntil === 1 ? 'TOMORROW' : `IN ${daysUntil} DAYS`;
+                if (statusEl) {
+                  statusEl.className = 'acad-status-pill upcoming';
+                  statusEl.textContent = inLabel;
+                }
+                if (tableStatusEl) {
+                  tableStatusEl.innerHTML = `<span class="acad-status-pill upcoming">${inLabel}</span>`;
+                }
+                if (progWrap) progWrap.style.display = 'none';
+              }
+            });
+
+            // Update Top Quick Overview Strip (#semStrip)
+            if (activePhase) {
+              const curIcon = document.getElementById('semCurIcon');
+              const curPct = document.getElementById('semCurPct');
+              const curTitle = document.getElementById('semCurTitle');
+              const curSub = document.getElementById('semCurSub');
+              const curBar = document.getElementById('semCurBar');
+              if (curIcon) curIcon.textContent = activePhase.icon;
+              if (curPct) curPct.textContent = `${activePhase.pct}%`;
+              if (curTitle) curTitle.textContent = activePhase.title;
+              if (curSub) curSub.textContent = `Day ${activePhase.dayNum}/${activePhase.totalDays} • ${activePhase.daysLeft}d left`;
+              if (curBar) curBar.style.width = `${activePhase.pct}%`;
+            }
+
+            // Next Vacation Countdown (checks Vacation 1 then Vacation 2)
+            const vac1Start = parseLocalDate('2026-11-18', false);
+            const vac1End = parseLocalDate('2026-11-24', true);
+            const vac2Start = parseLocalDate('2026-12-19', false);
+            const vac2End = parseLocalDate('2026-12-27', true);
+            const vacCountEl = document.getElementById('semVacCountdown');
+            const vacDatesEl = document.getElementById('semVacDates');
+
+            if (vacCountEl && vacDatesEl) {
+              if (now < vac1Start) {
+                const d = Math.ceil((vac1Start - todayStart) / msPerDay);
+                vacCountEl.textContent = d === 1 ? 'Starts Tomorrow' : `In ${d} Days`;
+                vacDatesEl.textContent = '18.11.2026 – 24.11.2026 (7d)';
+              } else if (now >= vac1Start && now <= vac1End) {
+                vacCountEl.textContent = '🏖️ On Vacation Now!';
+                vacDatesEl.textContent = 'Ends 24.11.2026';
+              } else if (now < vac2Start) {
+                const d = Math.ceil((vac2Start - todayStart) / msPerDay);
+                vacCountEl.textContent = d === 1 ? 'Starts Tomorrow' : `In ${d} Days`;
+                vacDatesEl.textContent = '19.12.2026 – 27.12.2026 (9d)';
+              } else if (now >= vac2Start && now <= vac2End) {
+                vacCountEl.textContent = '🎄 On Vacation Now!';
+                vacDatesEl.textContent = 'Ends 27.12.2026';
+              } else {
+                vacCountEl.textContent = 'Completed';
+                vacDatesEl.textContent = 'All vacations finished';
+              }
+            }
+
+            // Study Leave Countdown
+            const studyStart = parseLocalDate('2027-01-02', false);
+            const studyEnd = parseLocalDate('2027-01-17', true);
+            const studyCountEl = document.getElementById('semStudyCountdown');
+            if (studyCountEl) {
+              if (now < studyStart) {
+                const d = Math.ceil((studyStart - todayStart) / msPerDay);
+                studyCountEl.textContent = d === 1 ? 'Starts Tomorrow' : `In ${d} Days`;
+              } else if (now >= studyStart && now <= studyEnd) {
+                studyCountEl.textContent = '📝 Active Now';
+              } else {
+                studyCountEl.textContent = 'Completed';
+              }
+            }
+
+            // Exam Countdown
+            const examCountEl = document.getElementById('semExamCountdown');
+            if (examCountEl) {
+              if (now < examStart) {
+                const d = Math.ceil((examStart - todayStart) / msPerDay);
+                examCountEl.textContent = d === 1 ? 'Starts Tomorrow' : `In ${d} Days`;
+              } else {
+                examCountEl.textContent = '🎓 Ongoing Now';
+              }
+            }
+          } catch (err) {
+            console.error('updateAcademicCalendar error:', err);
+          }
+        }
+
+        updateAcademicCalendar();
+        setInterval(updateAcademicCalendar, 60000);
+
         // --- Full Real-Time Live Status Engine ---
         let simulatedTime = null;
 
@@ -1300,6 +2223,40 @@
                 if (idx === currentDayIdx) dh.classList.add('is-today');
                 else dh.classList.remove('is-today');
               });
+            }
+
+            // Check if currently in a Vacation, Study Leave, or Exam period (when not in demo mode)
+            if (!simulatedTime) {
+              const vac1S = parseLocalDate('2026-11-18', false), vac1E = parseLocalDate('2026-11-24', true);
+              const vac2S = parseLocalDate('2026-12-19', false), vac2E = parseLocalDate('2026-12-27', true);
+              const stdS  = parseLocalDate('2027-01-02', false), stdE  = parseLocalDate('2027-01-17', true);
+              const exmS  = parseLocalDate('2027-01-18', false);
+
+              if ((now >= vac1S && now <= vac1E) || (now >= vac2S && now <= vac2E)) {
+                liveCard.className = 'live-status-card';
+                liveIcon.textContent = '🏖️';
+                liveTag.className = 'status-tag free';
+                liveTagText.textContent = 'Semester Vacation';
+                liveTitle.textContent = 'Official University Vacation Period';
+                liveMeta.innerHTML = 'No regular lectures during the official vacation break. <button class="live-demo-btn" onclick="toggleSimDemo()">▶️ Preview Live Class Demo</button>';
+                return;
+              } else if (now >= stdS && now <= stdE) {
+                liveCard.className = 'live-status-card';
+                liveIcon.textContent = '📝';
+                liveTag.className = 'status-tag next';
+                liveTagText.textContent = 'Study Leave';
+                liveTitle.textContent = 'Semester I Study Leave (02.01.2027 – 17.01.2027)';
+                liveMeta.innerHTML = 'Examinations begin on 18 January 2027. Best of luck with your revision!';
+                return;
+              } else if (now >= exmS) {
+                liveCard.className = 'live-status-card active';
+                liveIcon.textContent = '🎓';
+                liveTag.className = 'status-tag now';
+                liveTagText.textContent = 'EXAMINATIONS';
+                liveTitle.textContent = 'Semester I Final Examinations (18.01.2027 – Onwards)';
+                liveMeta.innerHTML = 'All the best for your Level IV Semester I papers!';
+                return;
+              }
             }
 
             // Check if weekend
@@ -1421,15 +2378,33 @@
         updateLiveStatus();
         setInterval(updateLiveStatus, 10000);
 
-        // Day Pills Filtering for Mobile
+        // Day Pills & Academic Calendar Filtering
         const pills = document.querySelectorAll('.day-pill');
         const sections = document.querySelectorAll('.ag-section');
+        const wkEl = document.getElementById('wk');
+        const agEl = document.getElementById('ag');
+        const acadSec = document.getElementById('academicCalendarSection');
 
         pills.forEach(pill => {
           pill.onclick = () => {
             pills.forEach(p => p.classList.remove('active'));
             pill.classList.add('active');
             const day = pill.dataset.day;
+
+            if (day === 'calendar') {
+              if (wkEl) wkEl.style.display = 'none';
+              if (agEl) agEl.style.display = 'none';
+              if (acadSec) {
+                acadSec.style.display = 'block';
+                acadSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+              return;
+            }
+
+            // Restore timetable visibility according to viewport
+            if (wkEl) wkEl.style.display = '';
+            if (agEl) agEl.style.display = '';
+            if (acadSec) acadSec.style.display = 'block';
 
             sections.forEach(sec => {
               if (day === 'all') {
@@ -1449,28 +2424,28 @@
           };
         });
 
-        // Search Input
+        // Search Input (filters lectures + academic calendar cards)
         const search = document.getElementById('searchInput');
         if (search) {
           search.oninput = (e) => {
             const q = e.target.value.toLowerCase().trim();
-            document.querySelectorAll('.ag-card, .cls').forEach(card => {
+            document.querySelectorAll('.ag-card, .cls, .acad-card').forEach(card => {
               const text = card.textContent.toLowerCase();
               card.style.display = text.includes(q) ? '' : 'none';
             });
           };
         }
 
-        // Calendar export
+        // Calendar export (Exports both Weekly Lectures & Official Academic Calendar Dates)
         const expBtn = document.getElementById('btnExportCalendar');
         if (expBtn) {
           expBtn.onclick = () => {
             try {
               let ics = [
                 'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Timetable//EN',
-                'X-WR-CALNAME:Level IV Timetable'
+                'X-WR-CALNAME:Level IV Timetable & Academic Calendar'
               ];
-              const refMonday = new Date(2026, 9, 5);
+              const refMonday = new Date(2026, 8, 28); // 28 Sept 2026 (Start of Semester I)
               const pad = n => String(n).padStart(2, '0');
               SLOTS.forEach(s => {
                 const [d, startR, dur, code, ven] = s;
@@ -1487,14 +2462,29 @@
                 ics.push(`LOCATION:${ven}`);
                 ics.push(`DTSTART:${dtS}`);
                 ics.push(`DTEND:${dtE}`);
-                ics.push('RRULE:FREQ=WEEKLY;UNTIL=20261231T235959Z');
+                ics.push('RRULE:FREQ=WEEKLY;UNTIL=20270101T235959Z');
                 ics.push('END:VEVENT');
               });
+
+              // Also add Academic Calendar Milestones as All-Day Events
+              ACADEMIC_CALENDAR.forEach(ac => {
+                const sClean = ac.start.replace(/-/g, '');
+                const eDateObj = parseLocalDate(ac.end, false);
+                eDateObj.setDate(eDateObj.getDate() + 1); // ICS exclusive end date for VALUE=DATE
+                const eClean = `${eDateObj.getFullYear()}${pad(eDateObj.getMonth()+1)}${pad(eDateObj.getDate())}`;
+                ics.push('BEGIN:VEVENT');
+                ics.push(`SUMMARY:${ac.icon} ${ac.title} (Level IV Semester I)`);
+                ics.push(`DESCRIPTION:Official Academic Calendar Period: ${ac.period}`);
+                ics.push(`DTSTART;VALUE=DATE:${sClean}`);
+                ics.push(`DTEND;VALUE=DATE:${eClean}`);
+                ics.push('END:VEVENT');
+              });
+
               ics.push('END:VCALENDAR');
               const blob = new Blob([ics.join('\r\n')], { type: 'text/calendar' });
               const a = document.createElement('a');
               a.href = URL.createObjectURL(blob);
-              a.download = 'Timetable.ics';
+              a.download = 'Level_IV_Timetable_and_Academic_Calendar.ics';
               a.click();
             } catch(e) {}
           };
