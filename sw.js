@@ -1,4 +1,4 @@
-const CACHE_NAME = 'timetable-app-v6';
+const CACHE_NAME = 'timetable-app-v7';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
